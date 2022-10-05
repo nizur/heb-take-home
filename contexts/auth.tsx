@@ -50,6 +50,7 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
       // TODO: Parse and save token
       // setAccessToken();
       // Cookies.set(tokenCookieName, {});
+      // router.push('/');
       console.log(data);
     } catch (e) {
       console.error(e);

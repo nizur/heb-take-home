@@ -1,4 +1,3 @@
-// TODO: Add login page that accepts username/password
 // TODO: Send to https://order-pizza-api.herokuapp.com/api/auth/
 // TODO: Use returned token in auth header
 // TODO: Add order page that allows pizza configuration:
@@ -15,7 +14,6 @@
 // TODO: BONUS: Containerize the app
 // TODO: BONUS: Create proxy app that this app uses to connect with the API
 import Head from 'next/head'
-import Heading from '../components/Heading';
 import LoginForm from '../components/LoginForm';
 
 export default function Home(): JSX.Element {
@@ -28,7 +26,6 @@ export default function Home(): JSX.Element {
       </Head>
 
       <main>
-        <Heading>Login</Heading>
         <LoginForm />
       </main>
     </>

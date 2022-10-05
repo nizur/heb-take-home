@@ -4,8 +4,8 @@ import LoginForm from './LoginForm';
 
 const renderForm = () => {
   render(<LoginForm />);
-  const usernameField = screen.getByPlaceholderText('Enter a username');
-  const passwordField = screen.getByPlaceholderText('Enter a password');
+  const usernameField = screen.getByLabelText('username');
+  const passwordField = screen.getByLabelText('password');
   const submitButton = screen.getByRole('button');
 
   return {
