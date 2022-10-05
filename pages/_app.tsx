@@ -2,7 +2,7 @@ import AuthProvider from '../contexts/auth';
 import Layout from '../components/Layout';
 import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }): JSX.Element {
   return (
     <AuthProvider>
       <Layout className="container mx-auto">

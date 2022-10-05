@@ -1,12 +1,14 @@
+import type { ReactNode } from 'react';
 import Menu from '../Menu';
 
 interface LayoutProps {
-  children: any; // TODO: Get rid of any
+  children: ReactNode;
+  className?: string;
 }
 
-function Layout({ children }: LayoutProps): JSX.Element {
+function Layout({ children, className = '' }: LayoutProps): JSX.Element {
   return (
-    <div className="container mx-auto">
+    <div className={className}>
       <Menu />
       {children}
     </div>

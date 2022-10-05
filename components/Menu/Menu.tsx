@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useAuth } from '../../contexts/auth';
 
-function Menu(): JSX.Element {
+function Menu(): JSX.Element | null {
   const { isLoading, accessToken } = useAuth();
 
   if (isLoading || !accessToken) return null;

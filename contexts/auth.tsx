@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { createContext, useState, useEffect, useContext } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
@@ -12,7 +13,7 @@ export interface Context {
 }
 
 interface AuthProviderProps {
-  children: any; // TODO: Get rid of any
+  children: ReactNode;
 }
 
 const tokenCookieName = 'accessToken';
@@ -42,11 +43,9 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const login = async (username: string, password: string): Promise<void> => {
     try {
       setIsLoading(true);
-      const params = new URLSearchParams();
-      params.append('username', username);
-      params.append('password', password);
-      const { data } = await api.post('/auth', params);
+      const { data } = await api.post('/auth', { username, password });
       setIsLoading(false);
+      // TODO: Parse and save token
       console.log(data);
     } catch (e) {
       console.error(e);

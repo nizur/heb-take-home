@@ -6,7 +6,7 @@ const isValidInput = (value: string): boolean => {
   return Boolean(value) && value.length > 2;
 };
 
-function LoginForm() {
+function LoginForm(): JSX.Element {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { login } = useAuth();
