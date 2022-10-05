@@ -41,17 +41,24 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     loadUserFromCookieOrRedirect();
   }, []);
 
+  const saveCookie = ({ username, password, ...config }): void => {
+    Cookies.set(tokenCookieName, `${username}-${password}`, config);
+  };
 
   const login = async (username: string, password: string): Promise<void> => {
     try {
       setIsLoading(true);
-      const { data } = await api.post('/auth', { username, password });
+      //const { data } = await api.post('/auth', { username, password });
+      setAccessToken(username);
+      // NOTE: For right now just save a cookie until I build the api
+      saveCookie({
+        username,
+        password,
+        expires: 7,
+        path: '/'
+      });
+      router.push('/');
       setIsLoading(false);
-      // TODO: Parse and save token
-      // setAccessToken();
-      // Cookies.set(tokenCookieName, {});
-      // router.push('/');
-      console.log(data);
     } catch (e) {
       console.error(e);
       throw e;
