@@ -25,19 +25,21 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const router = useRouter();
 
   useEffect(() => {
-    const loadUserFromCookies = async () => {
+    const loadUserFromCookieOrRedirect = () => {
       const token = Cookies.get(tokenCookieName);
 
       if (token) {
-        console.log(`Found token ${token}`);
         api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
         setAccessToken(token);
+      } else {
+        router.push('/login');
       }
+
       setIsLoading(false);
     };
 
-    loadUserFromCookies();
-  }, [accessToken, setAccessToken]);
+    loadUserFromCookieOrRedirect();
+  }, []);
 
 
   const login = async (username: string, password: string): Promise<void> => {
@@ -46,6 +48,8 @@ function AuthProvider({ children }: AuthProviderProps): JSX.Element {
       const { data } = await api.post('/auth', { username, password });
       setIsLoading(false);
       // TODO: Parse and save token
+      // setAccessToken();
+      // Cookies.set(tokenCookieName, {});
       console.log(data);
     } catch (e) {
       console.error(e);
