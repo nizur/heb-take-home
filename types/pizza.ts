@@ -6,7 +6,7 @@ export interface Order {
 }
 
 export interface PlacedOrder extends Order {
-  Order_ID: number;
+  Order_ID: string; // Different from the original so I can use UUIDs
   Timestamp: string;
 }
 

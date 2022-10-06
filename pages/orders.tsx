@@ -1,7 +1,13 @@
+import { readFile } from 'jsonfile';
 import Head from 'next/head'
+import type { PlacedOrder } from '../types/pizza';
 import Heading from '../components/Heading';
 
-export default function Orders(): JSX.Element {
+interface OrdersProps {
+  orders?: PlacedOrder[];
+}
+
+export default function Orders({ orders }: OrdersProps): JSX.Element {
   return (
     <>
       <Head>
@@ -12,8 +18,16 @@ export default function Orders(): JSX.Element {
 
       <main>
         <Heading>Orders</Heading>
+        {orders?.map(order => (
+          <p key={order.Order_ID}>{order.Flavor}</p>
+        ))}
       </main>
     </>
   )
 }
 
+export async function getStaticProps() {
+  const json = `${process.cwd()}/db/index.json`;
+  const orders = await readFile(json);
+  return { props: { orders } };
+};
