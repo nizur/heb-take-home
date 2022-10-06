@@ -18,7 +18,14 @@ const Input = forwardRef((
 
   return (
     <input
-      className="block appearance-none w-full bg-white text-slate-800 border border-slate-300 focus:border-amber-300 focus:outline-none px-2 py-2 rounded"
+      className="block 
+        appearance-none 
+        w-full 
+        p-2
+        bg-white 
+        text-slate-800 
+        border border-slate-300 rounded
+        focus:border-amber-300 focus:outline-none"
       type={type}
       ref={ref}
       {...restProps}

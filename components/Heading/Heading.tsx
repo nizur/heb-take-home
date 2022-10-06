@@ -2,11 +2,14 @@ import type { ReactNode } from 'react';
 
 interface HeadingProps {
   children: ReactNode;
+  className?: string;
 }
 
-function Heading({ children }: HeadingProps): JSX.Element {
+function Heading({ children, className }: HeadingProps): JSX.Element {
+  const classes = `text-3xl font-bold ${className}`;
+
   return (
-    <h1 className="text-3xl font-bold">
+    <h1 className={classes}>
       {children}
     </h1>
   );
