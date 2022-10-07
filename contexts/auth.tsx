@@ -19,6 +19,7 @@ interface AuthProviderProps {
 const tokenCookieName = 'accessToken';
 export const AuthContext = createContext({} as Context);
 
+// TODO: Fix quick render flash before redirect
 function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);

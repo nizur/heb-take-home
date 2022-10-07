@@ -31,12 +31,13 @@ function OrdersFilter({
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        className="flex-auto w-full px-2 py-1 bg-white text-slate-800"
+        className="flex-auto w-full px-2 py-1 bg-inherit"
         placeholder="Search..."
       />
       <button
         className="flex-1 flex items-center justify-center px-4 border-l"
         onClick={() => onFilter({ prop, value })}
+        disabled={!Boolean(value.length)}
       >
         <svg
           className="h-4 w-4 text-grey-dark"

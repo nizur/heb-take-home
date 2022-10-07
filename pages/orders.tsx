@@ -8,6 +8,7 @@ import OrdersFilter from '../components/OrdersFilter';
 
 // TODO: Ability to delete an order
 // TODO: Add orders page that shows a list of all pizza orders
+// TODO: Add error message alert. Maybe ErrorBoundary?
 
 interface OrdersProps {
   orders?: PlacedOrder[];
@@ -29,7 +30,11 @@ export default function Orders({ orders }: OrdersProps): JSX.Element {
         return order[prop] === Number(value);
       }
 
-      return ~order[prop].indexOf(value);
+      // Standardize values before filtering
+      const orderValue = order[prop].toLowerCase();
+      const filter = value.toLowerCase();
+
+      return ~orderValue.indexOf(filter);
     });
 
     setFilteredOrders(filtered);
