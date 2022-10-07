@@ -19,6 +19,7 @@ function OrdersFilter({
   const [value, setValue] = useState('');
 
   const submitIfEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
     if (e.key === 'Enter') {
       onFilter({ prop, value });
     }
