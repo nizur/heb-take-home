@@ -27,14 +27,12 @@ describe('OrdersFilter', () => {
     expect(filter.placeholder).toBe('Search...');
 
     expect(button).toBeInTheDocument();
-    expect(button).toBeDisabled();
   });
 
   it('lets you search by different properties', async () => {
     const { select, filter, button } = renderFilter();
 
     await userEvent.type(filter, 'test');
-    expect(button).not.toBeDisabled();
 
     await userEvent.click(button);
     expect(onFilter).toBeCalledWith({ prop: 'One', value: 'test' });
@@ -44,5 +42,12 @@ describe('OrdersFilter', () => {
     await userEvent.type(filter, 'blargh');
     await userEvent.click(button);
     expect(onFilter).toBeCalledWith({ prop: 'Two', value: 'blargh' });
+  });
+
+  it('can be submitted with the enter key', async () => {
+    const { filter } = renderFilter();
+
+    await userEvent.type(filter, 'pfft{Enter}');
+    expect(onFilter).toBeCalledWith({ prop: 'One', value: 'pfft' });
   });
 });

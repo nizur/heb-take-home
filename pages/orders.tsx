@@ -5,6 +5,7 @@ import type { PlacedOrder } from '../types/pizza';
 import type { OnFilterData } from '../components/OrdersFilter';
 import Heading from '../components/Heading';
 import OrdersFilter from '../components/OrdersFilter';
+import OrderCard from '../components/OrderCard';
 
 // TODO: Ability to delete an order
 // TODO: Add orders page that shows a list of all pizza orders
@@ -32,9 +33,9 @@ export default function Orders({ orders }: OrdersProps): JSX.Element {
 
       // Standardize values before filtering
       const orderValue = order[prop].toLowerCase();
-      const filter = value.toLowerCase();
+      const fragment = value.toLowerCase();
 
-      return ~orderValue.indexOf(filter);
+      return orderValue.includes(fragment);
     });
 
     setFilteredOrders(filtered);
@@ -53,10 +54,13 @@ export default function Orders({ orders }: OrdersProps): JSX.Element {
           <Heading className="flex-auto">Orders</Heading>
           <OrdersFilter options={filterableOptions} onFilter={onChangeFilter} />
         </div>
-        {!filteredOrders.length && <p>No orders match your search criteria</p>}
-        {filteredOrders?.map(order => (
-          <p key={order.Order_ID}>{order.Flavor}</p>
-        ))}
+
+        <div className="flex flex-wrap gap-6 mt-8">
+          {!filteredOrders.length && <p>No orders match your search criteria</p>}
+          {filteredOrders?.map(order => (
+            <OrderCard key={order.Order_ID} order={order} />
+          ))}
+        </div>
       </main>
     </>
   )

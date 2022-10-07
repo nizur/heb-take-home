@@ -1,3 +1,4 @@
+import type { KeyboardEvent } from 'react';
 import { useState } from 'react';
 
 export interface OnFilterData {
@@ -17,6 +18,12 @@ function OrdersFilter({
   const [prop, setProp] = useState(options[0]);
   const [value, setValue] = useState('');
 
+  const submitIfEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      onFilter({ prop, value });
+    }
+  };
+
   return (
     <div className="border rounded overflow-hidden flex">
       <select
@@ -31,13 +38,13 @@ function OrdersFilter({
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onKeyUp={submitIfEnter}
         className="flex-auto w-full px-2 py-1 bg-inherit"
         placeholder="Search..."
       />
       <button
         className="flex-1 flex items-center justify-center px-4 border-l"
         onClick={() => onFilter({ prop, value })}
-        disabled={!Boolean(value.length)}
       >
         <svg
           className="h-4 w-4 text-grey-dark"
