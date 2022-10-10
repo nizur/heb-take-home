@@ -28,7 +28,7 @@ function OrderCard({ onCancel, order }: OrderCardProps) {
       </div>
       <div className="absolute bottom-0 left-0 w-full px-6 pt-4 pb-2 flex justify-between items-center">
         <div className="flex-auto text-sm font-semibold">Table #{order.Table_No}</div>
-        <span 
+        <span
           className="group flex items-center gap-2 flex-none text-red-600 text-sm font-semibold cursor-pointer"
           onClick={() => onCancel(order.Order_ID)}>
           <span className="text-transparent group-hover:text-red-600 transition-all ease-in-out">Cancel</span>

@@ -9,10 +9,10 @@ function MyApp({ Component, pageProps }): JSX.Element {
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
-      <Layout className="container mx-auto">
-        <Component {...pageProps} />
-      </Layout>
-        </QueryClientProvider>
+        <Layout className="container mx-auto">
+          <Component {...pageProps} />
+        </Layout>
+      </QueryClientProvider>
     </AuthProvider>
   )
 }
