@@ -1,5 +1,10 @@
-import type { ReactNode } from 'react';
-import { createContext, useState, useEffect, useContext } from 'react';
+import {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  ReactNode
+} from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
@@ -19,7 +24,6 @@ interface AuthProviderProps {
 const tokenCookieName = 'accessToken';
 export const AuthContext = createContext({} as Context);
 
-// TODO: Fix quick render flash before redirect
 function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
