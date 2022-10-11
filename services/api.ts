@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { PlacedOrder } from '../types/pizza';
+import { Order, PlacedOrder } from '../types/pizza';
 
 // NOTE: Paths: /auth for login; /orders/* for the rest
 
@@ -13,6 +13,15 @@ const api = Axios.create({
 });
 
 export default api;
+
+export const postNewOrder = async (order: Order): Promise<PlacedOrder[]> => {
+  try {
+    const { data: orders } = await api.post('/orders', JSON.stringify(order));
+    return orders;
+  } catch (e) {
+    throw new Error('There was an error placing your order');
+  }
+};
 
 export const fetchOrders = async ({ filter, property }): Promise<PlacedOrder[]> => {
   try {

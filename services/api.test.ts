@@ -1,12 +1,12 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-
 import api, {
   fetchOrders,
   filterOrdersByPropertyValue,
-  deleteOrderById
+  deleteOrderById,
+  postNewOrder
 } from './api';
-import type { PlacedOrder } from '../types/pizza';
+import { Order, PlacedOrder } from '../types/pizza';
 
 const fakeOrders: PlacedOrder[] = [
   {
@@ -35,9 +35,13 @@ const fakeOrders: PlacedOrder[] = [
   }
 ];
 
+// NOTE: We're not testing the API itself here, just the API service. Setting 
+// up the server to return failures on GET/DELETE. It's explained why further 
+// down.
 const server = setupServer(
-  // NOTE: Setting up the server to return failures on GET/DELETE. It's 
-  // explained why further down.
+  rest.post(`${api.defaults.baseURL}/orders`, (_, res, ctx) => {
+    return res(ctx.status(400));
+  }),
   rest.get(`${api.defaults.baseURL}/orders`, (_, res, ctx) => {
     return res(ctx.status(400));
   }),
@@ -108,6 +112,23 @@ describe('The API service', () => {
       await expect(fetchOrders({ property: 'Flavor', filter: '' }))
         .rejects
         .toThrow('There was an error fetching your orders');
+    });
+  });
+
+  // NOTE: postNewOrder just calls API POST. We're not testing that here,
+  // so let's make sure it throws on failure.
+  describe('postNewOrder', () => {
+    it('throws expected error on failure', async () => {
+      const fakeOrder: Order = {
+        Flavor: 'Pepperoni',
+        Crust: 'Regular',
+        Size: 'Large',
+        Table_No: 1
+      };
+
+      await expect(postNewOrder(fakeOrder))
+        .rejects
+        .toThrow('There was an error placing your order');
     });
   });
 
