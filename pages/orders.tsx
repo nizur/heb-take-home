@@ -8,6 +8,7 @@ import Heading from '../components/Heading';
 import OrdersFilter, { OnFilterData } from '../components/OrdersFilter';
 import OrderCard from '../components/OrderCard';
 import 'react-toastify/dist/ReactToastify.css';
+import { PlacedOrder } from '../types/pizza';
 
 const filterableOptions = ['Flavor', 'Crust', 'Size', 'Table_No'];
 
@@ -15,7 +16,7 @@ export default function Orders(): JSX.Element {
   const [filter, setFilter] = useState('');
   const [property, setProperty] = useState(filterableOptions[0]);
   const queryClient = useQueryClient();
-  const orders = useQuery(
+  const orders = useQuery<PlacedOrder[], Error>(
     ['orders', filter, property],
     () => fetchOrders({ filter, property })
   );
