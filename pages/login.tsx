@@ -1,4 +1,3 @@
-// TODO: BONUS: Containerize the app
 import Head from 'next/head'
 import LoginForm from '../components/LoginForm';
 

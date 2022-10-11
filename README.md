@@ -9,6 +9,7 @@ This was a fun challenge, and I enjoyed building it. There are a few things I'd 
 - I didn't spend a lot of time on the design of the site (clearly), but I did try to have some fun with it.
 - The API is just a mimic of the API you supplied. It is in no way a secure or well-built API. It does just enough. It behaves like the original except the Order_IDs are strings so that I can use UUIDs.
 - I didn't work on Friday or Saturday because it was my birthday, and my wife and I were out of town.
+- Saturday evening my computer stopped working after a Linux kernel update. Rolling back didn't work, so I had to reinstall the root partition and a bunch of apps to get it to work again. Yay, more stress!
 
 ## Getting Started
 
