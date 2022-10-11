@@ -16,6 +16,10 @@ const renderForm = () => {
 };
 
 describe('LoginForm', () => {
+  it('renders', () => {
+    render(<LoginForm />);
+  });
+
   it('renders with empty fields and disabled submit button', () => {
     const { usernameField, passwordField, submitButton } = renderForm();
 

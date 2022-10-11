@@ -10,6 +10,10 @@ const renderInput = (props: InputProps) => {
 };
 
 describe('Input', () => {
+  it('renders', () => {
+    render(<Input value="test" onChange={onChange} />);
+  });
+
   it('renders a text field if no type is passed', () => {
     const value = 'This is a test';
     const input = renderInput({ value });

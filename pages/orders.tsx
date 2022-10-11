@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import Head from 'next/head'
+import Link from 'next/link';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { ToastContainer, toast } from 'react-toastify';
 import { deleteOrderById, fetchOrders } from '../services/api';
-import type { OnFilterData } from '../components/OrdersFilter';
 import Heading from '../components/Heading';
-import OrdersFilter from '../components/OrdersFilter';
+import OrdersFilter, { OnFilterData } from '../components/OrdersFilter';
 import OrderCard from '../components/OrderCard';
+import 'react-toastify/dist/ReactToastify.css';
 
 const filterableOptions = ['Flavor', 'Crust', 'Size', 'Table_No'];
 
+// BUG: Getting an undefined 'toast' when quickly deleting orders
 export default function Orders(): JSX.Element {
   const [filter, setFilter] = useState('');
   const [property, setProperty] = useState(filterableOptions[0]);
@@ -21,7 +24,7 @@ export default function Orders(): JSX.Element {
     onSuccess: () => {
       // Invalidate and refetch
       queryClient.invalidateQueries(['orders'])
-    },
+    }
   });
 
   const onChangeFilter = ({ prop = 'Flavor', value }: OnFilterData) => {
@@ -30,7 +33,12 @@ export default function Orders(): JSX.Element {
   };
 
   const onCancelOrder = async (id: string): Promise<void> => {
-    await mutation.mutateAsync(id);
+    try {
+      await mutation.mutateAsync(id);
+      toast.success('Order canceled!');
+    } catch (e) {
+      toast.error('Oops! There was an error canceling your order');
+    }
   };
 
   return (
@@ -42,6 +50,8 @@ export default function Orders(): JSX.Element {
       </Head>
 
       <main>
+        <ToastContainer theme="colored" autoClose={3000} hideProgressBar />
+
         <div className="flex justify-between">
           <Heading className="flex-auto">Orders</Heading>
           <OrdersFilter options={filterableOptions} onFilter={onChangeFilter} />
@@ -56,6 +66,9 @@ export default function Orders(): JSX.Element {
             </>
           ) : (
             <>
+              {orders.status === 'success' && orders.data.length === 0 && (
+                <p className="text-bold">Looks like you have no orders! Try <Link href="/">placing an order</Link>.</p>
+              )}
               {orders.data?.map(order => (
                 <OrderCard key={order.Order_ID} order={order} onCancel={onCancelOrder} />
               ))}

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useAuth } from '../../contexts/auth';
 import Input from '../Input';
+import Button from '../Button';
 import logo from '../../public/pizzatime-logo.png';
 
 const isValidInput = (value: string): boolean => {
@@ -31,8 +32,7 @@ function LoginForm(): JSX.Element {
 
   const doLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const response = await login(username, password);
-    console.log(response);
+    await login(username, password);
   };
 
   return (
@@ -62,11 +62,13 @@ function LoginForm(): JSX.Element {
               />
             </div>
             <div>
-              <button
+              <Button
+                className="rounded"
                 onClick={doLogin}
                 disabled={!canSubmit}
-                className="disabled:bg-amber-100 bg-amber-300 hover:bg-amber-400 focus:bg-amber-400 focus:outline-none text-slate-800 font-bold py-2 px-4 rounded"
-              >Login</button>
+              >
+                Login
+              </Button>
             </div>
           </div>
         </div>

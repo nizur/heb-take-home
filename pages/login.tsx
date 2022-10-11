@@ -1,10 +1,3 @@
-// TODO: Add order page that allows pizza configuration:
-//  - Crust (string)
-//  - Flavor (string)
-//  - Size (string)
-//  - Table # (integer)
-// TODO: Display a success confirmation
-// TODO: Ability to add more than one order
 // TODO: BONUS: Containerize the app
 import Head from 'next/head'
 import LoginForm from '../components/LoginForm';

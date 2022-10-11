@@ -1,8 +1,7 @@
-import type { RefObject } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, ChangeEvent, RefObject } from 'react';
 
 export interface InputProps {
-  onChange?: () => {},
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void,
   placeholder?: string;
   type?: string;
   value: string;

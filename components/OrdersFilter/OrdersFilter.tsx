@@ -1,5 +1,5 @@
-import type { KeyboardEvent } from 'react';
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
+import Button from '../Button';
 
 export interface OnFilterData {
   prop?: string;
@@ -43,7 +43,7 @@ function OrdersFilter({
         className="flex-auto w-full px-2 py-1 bg-inherit"
         placeholder="Search..."
       />
-      <button
+      <Button
         className="flex-1 flex items-center justify-center px-4 border-l"
         onClick={() => onFilter({ prop, value })}
       >
@@ -55,7 +55,7 @@ function OrdersFilter({
         >
           <path d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
         </svg>
-      </button>
+      </Button>
     </div>
   );
 }
