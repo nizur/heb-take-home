@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'jsonfile';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import type { PlacedOrder } from '../../../types/pizza';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { PlacedOrder } from '../../../types/pizza';
 
 const json = `${process.cwd()}/db/index.json`;
 
