@@ -1,6 +1,7 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head'
 import Link from 'next/link';
+import { useMutation } from '@tanstack/react-query';
 import { ToastContainer, toast } from 'react-toastify';
 import { Order } from '../types/pizza';
 import { postNewOrder } from '../services/api';
@@ -16,6 +17,23 @@ export default function NewOrder(): JSX.Element {
   const isValidOrder = (): boolean => {
     return Boolean(orders.length);
   };
+
+  const postOrders = async (): Promise<void> => {
+    if (!isValidOrder()) {
+      return;
+    }
+
+    try {
+      orders.forEach(async (order) => {
+        await postNewOrder(order);
+      });
+      toast.success(`${orders.length} pizzas ordered!`);
+    } catch (e) {
+      toast.error('Oops! There was an error placing your order. Please try again.');
+    }
+  };
+
+  const mutate = useMutation(postOrders);
 
   const removeOrder = (id: string): void => {
     const updatedOrders = orders.filter((_, i) => i !== Number(id));
@@ -38,23 +56,6 @@ export default function NewOrder(): JSX.Element {
         Table_No: tableNos[0],
       }
     ]);
-  };
-
-  const postOrders = async (e: MouseEvent<HTMLButtonElement>): Promise<void> => {
-    e.preventDefault();
-
-    if (!isValidOrder()) {
-      return;
-    }
-
-    try {
-      orders.forEach(async (order) => {
-        await postNewOrder(order);
-      });
-      toast.success(`${orders.length} pizzas ordered!`);
-    } catch (e) {
-      toast.error('Oops! There was an error placing your order. Please try again.');
-    }
   };
 
   return (
@@ -90,7 +91,7 @@ export default function NewOrder(): JSX.Element {
 
           <Button
             disabled={!isValidOrder()}
-            onClick={postOrders}
+            onClick={() => mutate.mutate()}
             className="rounded"
           >
             Place Order

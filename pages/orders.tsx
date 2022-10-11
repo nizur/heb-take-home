@@ -11,7 +11,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const filterableOptions = ['Flavor', 'Crust', 'Size', 'Table_No'];
 
-// BUG: Getting an undefined 'toast' when quickly deleting orders
 export default function Orders(): JSX.Element {
   const [filter, setFilter] = useState('');
   const [property, setProperty] = useState(filterableOptions[0]);
@@ -20,10 +19,15 @@ export default function Orders(): JSX.Element {
     ['orders', filter, property],
     () => fetchOrders({ filter, property })
   );
+
   const mutation = useMutation(deleteOrderById, {
-    onSuccess: () => {
+    onSuccess: async () => {
       // Invalidate and refetch
-      queryClient.invalidateQueries(['orders'])
+      await queryClient.invalidateQueries(['orders']);
+      toast.success('Order canceled!');
+    },
+    onError: async () => {
+      toast.error('Oops! There was an error canceling your order');
     }
   });
 
@@ -33,12 +37,7 @@ export default function Orders(): JSX.Element {
   };
 
   const onCancelOrder = async (id: string): Promise<void> => {
-    try {
-      await mutation.mutateAsync(id);
-      toast.success('Order canceled!');
-    } catch (e) {
-      toast.error('Oops! There was an error canceling your order');
-    }
+    await mutation.mutateAsync(id);
   };
 
   return (

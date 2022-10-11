@@ -1,8 +1,9 @@
+import { MouseEventHandler } from 'react';
 import Image from 'next/image';
 import cancelIcon from '../../public/x.svg';
 
 interface CancelButtonProps {
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLSpanElement>;
 }
 
 function CancelButton({ onClick }: CancelButtonProps): JSX.Element {

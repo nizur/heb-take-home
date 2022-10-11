@@ -88,7 +88,7 @@ function NewOrderCard({
             value={order['Table_No']}
             onChange={(e) => onUpdate({
               index: id,
-              property: 'Crust',
+              property: 'Table_No',
               value: Number(e.target.value)
             })}
           />
